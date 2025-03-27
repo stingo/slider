@@ -20,22 +20,18 @@ interface Product {
   };
 }
 
-// 🚫 Stop words to remove from slug
 const STOP_WORDS = ["with", "and", "in", "for", "the", "on", "at", "a", "an", "of", "by"];
 
-function generateSeoSlug(title: string, condition: string, city: string): string {
-  const words = title
+function generateSeoTitle(title: string): string {
+  return title
     .toLowerCase()
-    .replace(/[^a-z0-9\s-]/g, "") // remove non-word chars (punctuation)
-    .split(/\s+/) // split by whitespace
-    .filter((word) => word && !STOP_WORDS.includes(word)) // remove stopwords
-    .slice(0, 7); // limit to 7 words
-
-  const baseSlug = words.join("-");
-
-  return `${baseSlug}-${condition}-${city}`
-    .replace(/--+/g, "-") // remove any double hyphens
-    .replace(/^-+|-+$/g, ""); // trim leading/trailing hyphens
+    .replace(/[^a-z0-9\s-]/g, "")
+    .split(/\s+/)
+    .filter((word) => word && !STOP_WORDS.includes(word))
+    .slice(0, 5)
+    .join("-")
+    .replace(/--+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
 
 const ProductsPage: React.FC = () => {
@@ -75,7 +71,8 @@ const ProductsPage: React.FC = () => {
             const city = product.user?.city?.toLowerCase().replace(/\s+/g, "-") || "accra";
             const condition = product.condition?.slug?.toLowerCase() || "new";
 
-            const seoSlug = generateSeoSlug(product.title, condition, city);
+            
+            const seoSlug = `${product.slug}-${condition}-${city}`;
             const productHref = `/${country}/${seoSlug}`;
 
             return (

@@ -18,11 +18,12 @@ const ProductDetailsPage = () => {
   const country = params?.country?.toString() || "";
   const productSeo = params?.seo?.toString() || "";
 
-  // ✅ Extract slug, condition (1–2 words), city
+  // ✅ Extract slug, condition, city
   const parts = productSeo.split("-");
   const city = parts.at(-1) || "";
-  const condition = parts.slice(-3, -1).join("-"); // covers both "new" and "brand-new"
-  const slug = parts.slice(0, -3).join("-");
+  const conditionParts = parts.slice(-3, -1);
+  const condition = conditionParts.join("-");
+  const slug = parts.slice(0, -conditionParts.length - 1).join("-");
 
   console.log("✅ Extracted:", { slug, condition, city });
 
@@ -64,9 +65,7 @@ const ProductDetailsPage = () => {
 📎 View product: ${productURL}
 
 Hello! I’m interested in this product. Can you share more details?
-`);
-
-  const buyerWhatsApp = `https://api.whatsapp.com/send?phone=+447593537599&text=${buyerMessage}`;
+  `);
 
   const sellerMessage = encodeURIComponent(`
 🛒 *New Customer Interest!*  
@@ -75,8 +74,9 @@ Hello! I’m interested in this product. Can you share more details?
 📎 View product: ${productURL}
 
 A buyer is interested in this product. Please respond to their inquiry!
-`);
+  `);
 
+  const buyerWhatsApp = `https://api.whatsapp.com/send?phone=+447593537599&text=${buyerMessage}`;
   const sellerWhatsApp = `https://api.whatsapp.com/send?phone=+233554248805&text=${sellerMessage}`;
 
   const handleWhatsAppClick = async (type: string) => {
