@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "3/21/2025 8:45:53 AM",
+    "isoTimestamp": "2025-03-21T08:45:53.560Z",
+    "productId": "1234",
+    "sellerId": "5678",
+    "buyerPhone": "233554248805",
+    "page": "Product Page",
+    "type": "buyer"
+  },
+  {
+    "timestamp": "3/21/2025 9:11:21 AM",
+    "isoTimestamp": "2025-03-21T09:11:21.466Z",
+    "productId": "1234",
+    "sellerId": "5678",
+    "buyerPhone": "233554248805",
+    "page": "Product Page",
+    "type": "buyer"
+  }
+]

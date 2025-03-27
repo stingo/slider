@@ -1,0 +1,14 @@
+const STOP_WORDS = ["with", "and", "in", "for", "the", "on", "at", "a", "an", "of", "by"];
+
+export function generateSeoSlug(title: string, condition: string, city: string): string {
+  const words = title
+    .toLowerCase()
+    .replace(/[^\w\s]/g, "") // remove special characters
+    .split(" ")
+    .filter(word => !STOP_WORDS.includes(word))
+    .slice(0, 7); // limit to first 7 meaningful words
+
+  const baseSlug = words.join("-");
+
+  return `${baseSlug}-${condition.toLowerCase()}-${city.toLowerCase().replace(/\s+/g, "-")}`;
+}
